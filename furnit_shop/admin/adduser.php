@@ -6,30 +6,26 @@
                 <div class="col-12">
                 <div class="container1">
     
-<div class="container">
+<div class="container  ">
 		<h2>Registration Form</h2>
-	<form  method="post" enctype="multipart/form-data">
-		<div class="form-group">
+	<form  method="post" enctype="multipart/form-data" >
+		<div class="form-group mt-4">
     <label for="firstname">First Name</label>
     <input type="text" class="form-control" id="exampleInputfirstname" name="firstname">
   </div>
-  <div class="form-group">
+  <div class="form-group mt-4">
     <label for="lastname">Last Name</label>
     <input type="text" class="form-control" id="exampleInputlastname" name="lastname">
   </div>
-  <div class="form-group">
-    <label for="phoneno">Phone Number</label>
-    <input type="text" class="form-control" id="exampleInputphoneno" name="phoneno">
-  </div>
-  <div class="form-group">
+  <div class="form-group mt-4">
     <label for="Email1">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
   </div>
-  <div class="form-group">
+  <div class="form-group mt-4">
     <label for="Password">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword" name="password">
   </div>
-  <button type="submit" class="btn btn-primary" name="create">Sign up</button>
+  <button type="submit" class="btn btn-primary mt-4" name="create">Sign up</button>
 </form>
 </div>
 </div>

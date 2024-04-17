@@ -51,15 +51,7 @@ class control extends model
                     }
                 }
 
-                // echo "<script>
-                // function preventBack() { 
-                //     window.history.forward();  
-                // } 
-
-
-
-                // window.onunload = preventBack(); 
-                // </script>";
+                
                 include "index.php";
 
                 break;
@@ -151,19 +143,42 @@ class control extends model
                          "cate_name"=>$cateName
                      );
                     $ins =  $this->insert('category',$data);
+                    $fetch =  $ins->fetch_object();
+                    $ucate_name = $fetch->cate_name;
  
-                    if($ins)
+                    if($ucate_name)
                     {
                      echo "
                      <script>
                      alert('Category Added...!')
-                     </script>";//anki
+                     window.location = 'dashboard.php'; 
+                     </script>";
                     }
                     }
                      include "category.php";
                      break;
 
                     case '/add-subcategory':
+
+                        if(isset($_REQUEST['create']))
+                    {
+                     $subcateName = $_REQUEST['subcate_name'];
+ 
+                     $data = array(
+                         "subcate_name"=>$subcateName
+                     );
+                    $ins =  $this->insert('subcategory',$data);
+                  
+
+ 
+                    if($ins)
+                    {
+                     echo "
+                     <script>
+                     alert('subCategory Added...!')
+                     </script>";
+                    }
+                    }
 
                         include "subcategory.php";
                         break;
@@ -173,12 +188,19 @@ class control extends model
                           
                             include "product.php";
                             break;
+
+                            case '/view-product':
+                                $prd_arr = $this->select("product");
+                          
+                                include "viewproduct.php";
+                                break;
+
                             case '/edit':
                                 if($_REQUEST['editId'])
                                 {
                                  $id = $_REQUEST['editId'];
                                  $where = array(
-                                     "user_id"=>$id
+                                     "u_id"=>$id
                                  );
          
          
@@ -191,8 +213,8 @@ class control extends model
                                  {
                                      $firstname = $_REQUEST['fname'];
                                      $lastname = $_REQUEST['lname'];
-                                     $email = $_REQUEST['em'];
-                                     $pass = $_REQUEST['pwd'];
+                                     $email =  $_REQUEST['email'];
+                                     $pass =  $_REQUEST['password'];
                                      
                  
                                      $data = array(
@@ -223,12 +245,57 @@ class control extends model
                                 include "edit.php";
                                 break;
                                 
-                                    case '/delete':
+                                case "/delete":
+                                    if(isset($_REQUEST['deleteId']))
+                                    {
+                                        $id= $_REQUEST['deleteId'];
+                                        $where = array(
+                                            "u_id"=>$id
+                                        );
+        
+                                        $res = $this->delete_where("users",$where);
+                                        if($res)
+                                        {
+                                         echo "
+                                         
+                                         <script>
+                                         alert('data deleted...!');
+                                         window.location='viewuser';
+                                         </script>
+                                         ";
+                                        }
+                                    }
 
-                          
-                                        include "delete.php";
-                                        break;
+                                    
+                                        case "/deleteproduct":
 
+                                            if(isset($_REQUEST['delId']))
+                                            {
+                                                $prd_id = $_REQUEST['delId'];
+                                                $cate_id = $_REQUEST['delId'];
+                                                $subcate_id = $_REQUEST['delId'];
+
+                                                $where = array(
+                                                    "prd_id"=>$prd_id,
+                                                    "cate_id"=>$cate_id,
+                                                    "subcate_id"=>$subcate_id,
+                                                );
+                            
+                                                $re = $this->delete_where('product',$where);
+                            
+                                                if($re){
+                                                    echo "<script>
+                                                    alert('remove product');
+                                                    window.location='view-product';
+                                                    </script>";
+                                                }
+                            
+                                            }
+                            
+                                            
+                                            break;
+
+        
 
 
         }

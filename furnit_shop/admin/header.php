@@ -195,7 +195,11 @@ else
                     <div data-i18n="Without menu">Add Product</div>
                   </a>
                 </li>
-
+                <li class="menu-item">
+                  <a href="view-product" class="menu-link">
+                    <div data-i18n="Without menu">view Product</div>
+                  </a>
+                </li>
 
               </ul>
             </li>

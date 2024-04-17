@@ -10,10 +10,13 @@
                         <thead class="table-light">
                           <tr>
                           
-                            <th class="text-truncate">Name</th>
-                            <th class="text-truncate">Id</th>
-                            <th class="text-truncate">Email</th>
-                            <th class="text-truncate">Password</th>
+                            <th class="text-truncate"> id</th>
+                            <th class="text-truncate">category</th>
+                            <th class="text-truncate">sucategory</th>
+                            <th class="text-truncate">Product id</th>
+                            <th class="text-truncate">Product name</th>
+                            <th class="text-truncate">Product description</th>
+                            <th class="text-truncate">Product price</th>
                             <th class="text-truncate">Edit</th>
                             <th class="text-truncate">Delete</th>
                             
@@ -22,9 +25,9 @@
                         <tbody>
 
                         <?php
-                        if(!empty($user_arr))
+                        if(!empty($prd_arr))
                         {
-                            foreach($user_arr as $user)
+                            foreach($prd_arr as $prd)
                             {
 
                          
@@ -33,16 +36,22 @@
                             <td>
                             
                               <div class="d-flex align-items-center">
-                                <div class="avatar avatar-sm me-3">
+                              <div class="avatar avatar-sm me-3">
                                   <img src="assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
                                 </div>
+                               <div>
                                 
-                                <div>
                                 
-                                  <h6 class="mb-0 text-truncate"><?php echo $user->firstname?></h6>
-                                  <small class="text-truncate"><?php echo $user->lastname?></small>
+                            <td class="text-truncate"><?php echo $prd->cate_id?></td>
+                            <td class="text-truncate"><?php echo $prd->subcate_id?></td>
+                            <td class="text-truncate"><?php echo $prd->prd_id?></td>
+                            <td class="text-truncate"><?php echo $prd->prd_name?></td>
+                            <td class="text-truncate"><?php echo $prd->prd_description?></td>
+                            <td class="text-truncate"><?php echo $prd->prd_price?></td>
+                                  
+                                
                                 </div>
-                                <td class="text-truncate"><?php echo $user->u_id?></td>
+                                
                               </div>
                              
                             </td>
@@ -50,14 +59,12 @@
                             <!-- <td class="text-truncate">
                               <i class="mdi mdi-laptop mdi-24px text-danger me-1"></i> Admin
                             </td> -->
-                    
-                            <td class="text-truncate"><?php echo $user->email?></td>
-                            <td class="text-truncate"><?php echo $user->password?></td>
+                           
                            
                             <!-- <td><span class="badge bg-label-warning rounded-pill">Pending</span></td> -->
 
-                            <td><a href="/furnit_shop/admin/edit?editId=<?php echo $user->user_id;?>"><button class="bg-danger border text-white rounded-3 px-4 py-2 ">Edit</button></a></td>
-                            <td><a href="/furnit_shop/admin/delete?deleteId=<?php echo $user->user_id;?>"><button class="bg-danger border text-white rounded-3 px-4 py-2 ">Delete</button></a></td>
+                            <td><a href="/furnit_shop/admin/editproduct?editId=<?php echo $prd->prd_id;?>"><button class="bg-danger border text-white rounded-3 px-4 py-2 ">Edit</button></a></td>
+                            <td><a href="/furnit_shop/admin/deleteproduct?delId=<?php echo $prd->prd_id;?>"><button class="bg-danger border text-white rounded-3 px-4 py-2 ">Delete</button></a></td>
                           
                           </tr>
 

@@ -6,15 +6,15 @@ class model
 	public $conn="";
 	
 	function __construct()
-	{							//hostname/username/pass/db_name
+	{							
 		$this->conn=new mysqli('localhost','root','','furnit_shop');
 	}
 	
 	function select($tbl)
 	{
-		$sel="select * from $tbl";	  // query
-		$run=$this->conn->query($sel);  // query run by conn
-		while($fetch=$run->fetch_object()) // fetch data from mysql
+		$sel="select * from $tbl";	 
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -26,9 +26,9 @@ class model
 	
 	function select_join2($tbl1,$tbl2,$on)
 	{
-		$sel="select * from $tbl1 join $tbl2 on $on";	  // query
-		$run=$this->conn->query($sel);  // query run by conn
-		while($fetch=$run->fetch_object()) // fetch data from mysql
+		$sel="select * from $tbl1 join $tbl2 on $on";	 
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -41,8 +41,8 @@ class model
 	function select_join3($tbl1,$tbl2,$on,$tbl3,$on1)
 	{
 		$sel="select * from $tbl1 join $tbl2 on $on join $tbl3 on $on1";	  // query
-		$run=$this->conn->query($sel);  // query run by conn
-		while($fetch=$run->fetch_object()) // fetch data from mysql
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -55,9 +55,9 @@ class model
 	
 	function select_like($tbl,$col,$value)
 	{
-		$sel="select * from $tbl where $col like '$value%'";  // query
-		$run=$this->conn->query($sel); // run
-		while($fetch=$run->fetch_object()) // after run fetch all data from sql
+		$sel="select * from $tbl where $col like '$value%'";  
+		$run=$this->conn->query($sel); 
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -66,7 +66,7 @@ class model
 
 	
 	
-	// login & data fetch
+	
 	function select_where($tbl,$where)
 	{
 		$sel="select * from $tbl where 1=1";
@@ -78,7 +78,7 @@ class model
 			$sel.=" and $col_arr[$i]='$val_arr[$i]'";
 			$i++;
 		}
-		$run=$this->conn->query($sel);  // query run by conn
+		$run=$this->conn->query($sel);  
 		return $run;
 	}
 	
@@ -93,8 +93,8 @@ class model
 			$sel.=" and $col_arr[$i]='$val_arr[$i]'";
 			$i++;
 		}
-		$run=$this->conn->query($sel);  // query run by conn
-		while($fetch=$run->fetch_object()) // fetch data from mysql
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -115,8 +115,8 @@ class model
 		    $sel.=" and $col_arr[$i]='$val_arr[$i]'";
 			$i++;
 		}
-		$run=$this->conn->query($sel);  // query run by conn
-		while($fetch=$run->fetch_object()) // fetch data from mysql
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
 		{
 			$arr[]=$fetch;
 		}
@@ -129,7 +129,7 @@ class model
 	
 	function insert($tbl,$data)
 	{
-		//$data=array("cate_name"=>$cate_name,"cate_des"=>$cate_des)
+		
 		$col_arr=array_keys($data);
 		$col=implode(",",$col_arr);
 		
@@ -187,7 +187,7 @@ class model
 			$del.=" and $col_arr[$i]='$val_arr[$i]'";
 			$i++;
 		}
-		$run=$this->conn->query($del);  // query run by conn
+		$run=$this->conn->query($del);  
 		return $run;
 
 		

@@ -43,6 +43,7 @@
                                 <label class="form-control-label">NAME</label>
                                 <input type="text" name="fname" class="form-control" value="<?php echo $fetch->firstname?>" i>
                             </div>
+                          
                             <div class="form-group">
                                 <label class="form-control-label">EMAIL</label>
                                 <input type="email" name="email" class="form-control" value="<?php echo $fetch->email?>" i>

@@ -11,10 +11,21 @@
 	<form  method="post" enctype="multipart/form-data">
 		<div class="form-group">
     <label for="firstname">Category Name</label>
-    <input type="text" class="form-control" id="exampleInputfirstname" name="cate_name">
+    <input type="text" class="form-control" id="category-dropdown" name="cate_name">
+    
   </div>
 
-  <button type="submit" class="btn btn-primary" name="create">Add Category</button>
+  <button type="submit" class="btn btn-primary mt-4" name="create" >Add Category</button>
+  </div>
+        <!-- <div class="mb-2">
+            <label for="state"><strong>Subcategory : </strong><span class="text-danger">*</span></label>
+            <select class="form-select" id="subcategory-dropdown"></select>
+        </div>
+        <div class="mb-2">
+            <label for="city"><strong>product : </strong><span class="text-danger">*</span></label>
+            <select class="form-select" id="product-dropdown"></select>
+        </div> -->
+   
 </form>
 </div>
 </div>
@@ -23,6 +34,41 @@
 
               </div>
             </div>
+            <script>
+        
+        $(document).ready(function() {
+            $('#category-dropdown').on('change', function() {
+                var cate_id = this.value;
+                $.ajax({
+                    url: "subcategory.php",
+                    type: "POST",
+                    data: {
+                        cate_id: cate_id
+                    },
+                    cache: false,
+                    success: function(result) {
+                        $("#subcategory-dropdown").html(result);
+                        $('#product-dropdown').html('<option value="">Select Subcategory First</option>');
+                    }
+                });
+            });
+
+            $('#subcategory-dropdown').on('change', function() {
+                var subcate_id = this.value;
+                $.ajax({
+                    url: "product.php",
+                    type: "POST",
+                    data: {
+                        prd_id: prd_id
+                    },
+                    cache: false,
+                    success: function(result) {
+                        $("#product-dropdown").html(result);
+                    }
+                });
+            });
+        });
+    </script>
             <!-- / Content -->
 
             <!-- Footer -->

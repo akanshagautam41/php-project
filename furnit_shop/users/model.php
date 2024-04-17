@@ -8,12 +8,22 @@ class model
     {
        $this->conn =  new mysqli("localhost","root","","furnit_shop");
 
-    //    if($this->conn)
-    //    {
-    //     echo "connected..!";
-    //     // exit;
-    //    }
+    
     }
+
+    function select($tbl)
+	{
+		$sel="select * from $tbl";	 
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
+		{
+			$arr[]=$fetch;
+		}
+		if(!empty($arr))
+		{
+			return $arr;
+		}
+	}
 
     function insert($table,$data)  
     {
@@ -23,11 +33,15 @@ class model
        $val_arr = array_values($data);
        $val = implode("','",$val_arr);
 
-    
+     
        $query = "insert into $table ($col) values ('$val')";
 
        $run = $this->conn->query($query);
-       return $run;
+
+      
+        return $run;
+       
+
        
    }
 
@@ -36,6 +50,7 @@ class model
        $col_arr = array_keys($where);
        $val_arr = array_values($where);
 
+       
 
        $sel=  "select * from $tbl where 1=1";
 
@@ -49,44 +64,104 @@ class model
 
        $run = $this->conn->query($sel);
 
-       return $run;
-       
-}
-function update($tbl,$data,$where)
-{
-   $upd =  "update $tbl set ";
-   $col_arr = array_keys($data);// name,image
-   $val_arr = array_values($data);
-   $count = count($data);    
-    $j=0;
-    foreach($data as $d)
-    {
-        if($count==$j+1)
-        {
-         $upd.= "$col_arr[$j] = '$val_arr[$j]'";
-        }
-        else 
-        {
- 
-         $upd.= "$col_arr[$j] = '$val_arr[$j]',";
-         $j++;
-        }
-    }
-    $upd.= "where 1=1";
-   $wcol_arr = array_keys($where);// name,image
-   $wval_arr = array_values($where);
-    $i=0;
-   foreach($where as $w)
-   {
-    $upd.= " and $wcol_arr[$i] = '$wval_arr[$i]'";
-    $i++;
+      
+        return $run;
+        
    }
 
-  $run = $this->conn->query($upd);
+   function select_where_multidata($tbl,$where)
+	{
+		$sel="select * from $tbl where 1=1";
+		$col_arr=array_keys($where);	
+		$val_arr=array_values($where);
+		$i=0;
+		foreach($where as $c)
+		{
+			$sel.=" and $col_arr[$i]='$val_arr[$i]'";
+			$i++;
+		}
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
+		{
+			$arr[]=$fetch;
+		}
+		if(!empty($arr))
+		{
+			return $arr;
+		}
+	}
 
-   return $run;
+
+    function select_join_where_multidata($tbl1,$tbl2,$on,$where)
+	{
+		$sel="select * from $tbl1 join $tbl2 on $on where 1=1";
+		$col_arr=array_keys($where);	
+		$val_arr=array_values($where);
+		$i=0;
+		foreach($where as $c)
+		{
+		    $sel.=" and $col_arr[$i]='$val_arr[$i]'";
+			$i++;
+		}
+		$run=$this->conn->query($sel);  
+		while($fetch=$run->fetch_object()) 
+		{
+			$arr[]=$fetch;
+		}
+		if(!empty($arr))
+		{
+			return $arr;
+		}
+	}
+   function update($tbl,$data,$where)
+   {
+       $col_arr=array_keys($data);
+       $val_arr=array_values($data);
+       
+       $upd="update $tbl set ";
+       $j=0;
+       $count=count($data);
+       foreach($data as $c)
+       {
+           if($count==$j+1)
+           {
+           $upd.=" $col_arr[$j]='$val_arr[$j]'";	
+           }	
+           else
+           {
+           $upd.=" $col_arr[$j]='$val_arr[$j]',";
+           $j++;
+           }
+       }
+       
+       $upd.="where 1=1";
+       $wcol_arr=array_keys($where);	
+       $wval_arr=array_values($where);
+       $i=0;
+       foreach($where as $c)
+       {
+           $upd.=" and $wcol_arr[$i]='$wval_arr[$i]'";
+           $i++;
+       }
+       $run=$this->conn->query($upd);  
+       return $run;
+   }
+
+   function delete_where($tbl,$where)
+	{
+		$del="delete from $tbl where 1=1";
+		$col_arr=array_keys($where);	
+		$val_arr=array_values($where);
+		$i=0;
+		foreach($where as $c)
+		{
+			$del.=" and $col_arr[$i]='$val_arr[$i]'";
+			$i++;
+		}
+		$run=$this->conn->query($del);  
+		return $run;
+
+		
+	}
+   
 }
-}
-
-
-?>
